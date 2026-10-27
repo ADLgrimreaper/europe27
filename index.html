@@ -3,304 +3,276 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Europe 27: Rome to Barcelona, 22 Jun to 14 Jul 2027.">
+<meta name="description" content="Europe 27: Rome to Barcelona, 22 Jun to 14 Jul 2027. Route, stays and transit options.">
 <title>Europe 27</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
 <style>
-/* Layout: a travel ledger. Header with countdown, a single trip view,
-   route drawn as a schematic map over a lat/long grid, legs set like ticket stubs. */
+/* Layout: one column on a strict 12-col grid. Header, map, a ruler of stays sized by nights,
+   then a transit table: one row per leg, the pick first and alternatives underneath.
+   Less, but better: Helvetica, grey ground, black type, one orange. */
 :root {
-  --bg: #f3f7f6;        /* sea-mist ground */
-  --panel: #ffffff;
-  --ink: #10282b;       /* deep Adriatic ink */
-  --muted: #557073;
-  --line: #d3e0de;
-  --accent: #0d6c73;    /* Adriatic teal */
-  --accent-soft: #dcefee;
-  --sun: #d98e04;       /* late-afternoon sun, for the boat leg and highlights */
-  --sun-soft: #fbefd5;
-  --good: #1e7b4c;
-  --bad: #b3261e;
-  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --body: "Instrument Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --r: 10px;
+  --bg: #efefec;        /* Braun light grey */
+  --panel: #f8f8f6;
+  --ink: #181818;
+  --muted: #6b6b67;
+  --line: #c9c9c4;
+  --faint: #deded9;
+  --accent: #e8571e;    /* the orange switch */
+  --boat: #8a8a85;
+  --font: "Helvetica Neue", Helvetica, "Nimbus Sans", Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0c1a1c; --panel: #122628; --ink: #e4eeed; --muted: #94acae; --line: #24403f;
-    --accent: #45b8be; --accent-soft: #143436; --sun: #f2b33d; --sun-soft: #33280f;
-    --good: #5cc28c; --bad: #ef7a72; color-scheme: dark;
+    --bg: #161615; --panel: #1d1d1c; --ink: #ecebe7; --muted: #a2a29c; --line: #3a3a37; --faint: #2a2a28;
+    --accent: #ff6a2b; --boat: #8d8d87; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0c1a1c; --panel: #122628; --ink: #e4eeed; --muted: #94acae; --line: #24403f;
-  --accent: #45b8be; --accent-soft: #143436; --sun: #f2b33d; --sun-soft: #33280f;
-  --good: #5cc28c; --bad: #ef7a72; color-scheme: dark;
+  --bg: #161615; --panel: #1d1d1c; --ink: #ecebe7; --muted: #a2a29c; --line: #3a3a37; --faint: #2a2a28;
+  --accent: #ff6a2b; --boat: #8d8d87; color-scheme: dark;
 }
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); }
-.wrap { max-width: 980px; margin: 0 auto; padding-block: 20px 56px;
-  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.1; }
-.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-.num { font-variant-numeric: tabular-nums; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); font-variant-numeric: tabular-nums; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: max(28px, env(safe-area-inset-top, 0px)) 64px;
+  padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+h1, h2 { margin: 0; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+.label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .muted { color: var(--muted); }
-.small { font-size: 13px; }
+section { margin-top: 48px; }
+section > header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 16px; }
+section > header h2 { font-size: 22px; }
 
 /* Header */
-.top { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: flex-end; justify-content: space-between;
-  padding-bottom: 18px; border-bottom: 2px solid var(--ink); }
-.brand .eyebrow { font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
-.brand h1 { font-size: clamp(38px, 7vw, 64px); font-weight: 800; letter-spacing: -.02em; margin-top: 6px; }
-.brand p { margin: 6px 0 0; color: var(--muted); }
-.count { text-align: right; }
-.count .big { font: 800 clamp(40px, 8vw, 64px)/1 var(--display); color: var(--accent); font-variant-numeric: tabular-nums; }
-.count .lbl { font: 600 12px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-
-/* Tabs */
-nav.tabs { display: flex; gap: 6px; margin: 18px 0 22px; flex-wrap: wrap; }
-nav.tabs a { font: 600 14px/1 var(--body); color: var(--ink); text-decoration: none; padding: 10px 16px;
-  border: 1.5px solid var(--line); border-radius: 999px; }
-nav.tabs a[aria-current="page"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-nav.tabs a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 2px solid var(--accent); outline-offset: 2px; }
-
-section[data-view] { display: grid; gap: 22px; }
-.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; min-width: 0; }
-.card h2 { font-size: 21px; font-weight: 700; margin-bottom: 4px; }
-.grid2 { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 22px; align-items: start; }
-@media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } .count { text-align: left; } }
+.top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; }
+.top h1 { font-size: clamp(48px, 9vw, 96px); line-height: .9; letter-spacing: -.035em; margin-top: 10px; }
+.top p { margin: 12px 0 0; max-width: 52ch; color: var(--muted); }
+.dial { text-align: right; }
+.dial .n { font-size: clamp(48px, 9vw, 96px); line-height: .9; font-weight: 300; letter-spacing: -.03em; }
+.dial .n .dot { display: inline-block; width: .16em; height: .16em; border-radius: 50%; background: var(--accent); vertical-align: .62em; margin-left: .06em; }
+@media (max-width: 560px) { .top { grid-template-columns: 1fr; } .dial { text-align: left; } }
 
 /* Map */
-.map svg { width: 100%; height: auto; display: block; }
-.map .grat { stroke: var(--line); stroke-width: 1; }
-.map .gratlbl { fill: var(--muted); font: 500 10px var(--mono); }
-.map .route { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
-.map .boat { fill: none; stroke: var(--sun); stroke-width: 3; stroke-dasharray: 2 6; stroke-linecap: round; }
-.map .rail { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 9 5; }
-.map .dot { fill: var(--panel); stroke: var(--ink); stroke-width: 2.5; }
-.map .dot.end { fill: var(--ink); }
-.map .city { fill: var(--ink); font: 700 13px var(--display); }
-.map .dates { fill: var(--muted); font: 500 10.5px var(--mono); }
-.map .halo { paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
-.legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; font-size: 13px; color: var(--muted); }
-.legend i { display: inline-block; width: 26px; height: 0; border-top: 3px solid var(--accent); vertical-align: middle; margin-right: 6px; }
-.legend i.b { border-top: 3px dotted var(--sun); }
-.legend i.t { border-top: 3px dashed var(--accent); }
+.map { background: var(--panel); border: 1px solid var(--line); padding: 12px; }
+.map svg { display: block; width: 100%; height: auto; }
+.map .grat { stroke: var(--faint); stroke-width: 1; }
+.map .gl { fill: var(--muted); font: 10px var(--font); letter-spacing: .04em; }
+.map .fly { fill: none; stroke: var(--ink); stroke-width: 1.8; }
+.map .boat { fill: none; stroke: var(--boat); stroke-width: 2.2; stroke-dasharray: 1.5 5; stroke-linecap: round; }
+.map .rail { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-dasharray: 6 4; opacity: .55; }
+.map .pt { fill: var(--panel); stroke: var(--ink); stroke-width: 2; }
+.map .pt.on { fill: var(--accent); stroke: var(--accent); }
+.map .c { fill: var(--ink); font: 700 13px var(--font); }
+.map .d { fill: var(--muted); font: 11px var(--font); }
+.map .halo { paint-order: stroke; stroke: var(--panel); stroke-width: 4px; stroke-linejoin: round; }
+.key { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--muted); }
+.key i { display: inline-block; width: 24px; vertical-align: middle; margin-right: 6px; border-top: 2px solid var(--ink); }
+.key i.b { border-top: 2px dotted var(--boat); }
+.key i.t { border-top: 2px dashed var(--ink); opacity: .6; }
 
-/* Itinerary */
-ol.trip { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
-.stop { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
-.stop:first-child { border-top: 0; padding-top: 0; }
-.stop .when { font: 600 12px/1.35 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
-.stop h3 { font-size: 19px; font-weight: 700; }
-.stop p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
-.nights { display: inline-block; font: 600 11px/1 var(--mono); background: var(--accent-soft); color: var(--accent);
-  padding: 4px 7px; border-radius: 999px; margin-left: 6px; vertical-align: 3px; letter-spacing: .04em; }
-.nights.boat { background: var(--sun-soft); color: var(--sun); }
-.leg { margin: 8px 0 0 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px 14px; align-items: center;
-  border: 1.5px dashed var(--line); border-radius: 8px; padding: 10px 12px; }
-.leg .code { font: 600 15px/1 var(--mono); letter-spacing: .02em; }
-.leg .what { font-size: 13.5px; color: var(--muted); min-width: 0; }
-.leg .pp { font: 700 15px/1 var(--mono); text-align: right; }
-.leg .pp small { display: block; font: 500 10.5px/1.4 var(--mono); color: var(--muted); }
-@media (max-width: 460px) { .leg { grid-template-columns: 1fr auto; } .leg .what { grid-column: 1 / -1; grid-row: 2; } }
-.total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap;
-  margin-top: 14px; padding-top: 12px; border-top: 2px solid var(--ink); }
-.total b { font: 800 24px/1 var(--display); }
+/* Stays ruler */
+.ruler { display: flex; border: 1px solid var(--ink); }
+.stay { flex: var(--n) 1 0; min-width: 104px; padding: 10px 10px 12px; border-left: 1px solid var(--ink); background: var(--panel); }
+.stay:first-child { border-left: 0; }
+.stay.boat { background: repeating-linear-gradient(90deg, var(--panel) 0 10px, var(--faint) 10px 11px); }
+.stay b { display: block; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stay span { display: block; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.stay .nn { margin-top: 10px; font-size: 28px; line-height: 1; font-weight: 300; color: var(--ink); white-space: nowrap; }
+.stay .nn small { font-size: 12px; color: var(--muted); margin-left: 4px; }
+.ticks { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: var(--muted); }
+@media (max-width: 700px) {
+  .ruler { flex-direction: column; }
+  .stay { border-left: 0; border-top: 1px solid var(--ink); display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; }
+  .stay:first-child { border-top: 0; }
+  .stay .nn { grid-row: 1 / span 2; grid-column: 2; margin: 0; align-self: center; }
+  .ticks { display: none; }
+}
 
-/* Forms */
-label { display: block; font: 600 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
-input, select, textarea { width: 100%; font: 15px var(--body); color: var(--ink); background: var(--bg); border: 1.5px solid var(--line);
-  border-radius: 8px; padding: 9px 10px; min-width: 0; }
-textarea { resize: vertical; min-height: 84px; }
-.row { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-.field { min-width: 0; }
-button { font: 600 14px/1 var(--body); border-radius: 8px; padding: 11px 16px; cursor: pointer; border: 1.5px solid var(--ink);
-  background: var(--ink); color: var(--bg); }
-button.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
-button.link { background: none; border: 0; padding: 4px; color: var(--muted); font-weight: 500; text-decoration: underline; }
-button:disabled { opacity: .45; cursor: not-allowed; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 11px; font-size: 14px; cursor: pointer; user-select: none; }
-.chip input { width: auto; margin: 0; accent-color: var(--accent); }
-.chip:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
-.stack { display: grid; gap: 12px; }
-.actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-
-/* Money */
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-th { text-align: left; font: 600 11.5px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 6px; border-bottom: 1.5px solid var(--ink); }
-td { padding: 9px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
-td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; }
-.tablewrap { overflow-x: auto; }
-.pos { color: var(--good); font-weight: 600; }
-.neg { color: var(--bad); font-weight: 600; }
-.settle li { padding: 8px 0; border-bottom: 1px solid var(--line); }
-.settle { list-style: none; padding: 0; margin: 0; }
-
-/* Polls */
-.poll { display: grid; gap: 10px; }
-.poll h3 { font-size: 18px; }
-.opt { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; width: 100%;
-  text-align: left; background: transparent; color: var(--ink); border: 1.5px solid var(--line); border-radius: 8px; padding: 11px 12px; overflow: hidden; font-weight: 500; }
-.opt .bar { position: absolute; inset: 0 auto 0 0; background: var(--accent-soft); z-index: 0; transition: width .3s ease; }
-.opt > span { position: relative; z-index: 1; min-width: 0; }
-.opt.mine { border-color: var(--accent); }
-.opt .who { display: block; font-size: 12.5px; color: var(--muted); font-weight: 400; margin-top: 2px; }
-@media (prefers-reduced-motion: reduce) { .opt .bar { transition: none; } }
-
-.notice { border-left: 3px solid var(--sun); background: var(--sun-soft); padding: 10px 12px; border-radius: 6px; font-size: 14px; }
-.empty { color: var(--muted); font-size: 14px; padding: 10px 0; }
-.err { color: var(--bad); font-size: 13.5px; min-height: 1em; }
-footer { margin-top: 28px; color: var(--muted); font-size: 12.5px; }
+/* Transit */
+.leg { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 0 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.leg:last-child { border-bottom: 0; }
+.leg .when { font-size: 13px; }
+.leg .when strong { display: block; font-size: 20px; letter-spacing: -.01em; }
+.opts { display: grid; gap: 0; min-width: 0; }
+.opt { display: grid; grid-template-columns: 14px minmax(0, 1.4fr) minmax(0, 1fr) 70px 90px; gap: 12px; align-items: baseline;
+  padding: 7px 0; border-top: 1px solid var(--faint); font-size: 14px; }
+.opt:first-child { border-top: 0; }
+.opt .mk { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--line); align-self: center; }
+.opt.pick .mk { background: var(--accent); border-color: var(--accent); }
+.opt.pick .who { font-weight: 700; }
+.opt .t, .opt .dur { color: var(--muted); }
+.opt .p { text-align: right; font-weight: 700; }
+.opt .p small { display: block; font-weight: 400; font-size: 11px; color: var(--muted); }
+.opt .note { grid-column: 2 / -1; font-size: 12.5px; color: var(--muted); margin-top: -2px; }
+.colsrow { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 0 24px; }
+.cols { display: grid; grid-template-columns: 14px minmax(0, 1.4fr) minmax(0, 1fr) 70px 90px; gap: 12px; padding-bottom: 6px; }
+.cols span:last-child { text-align: right; }
+@media (max-width: 760px) {
+  .leg { grid-template-columns: 1fr; gap: 8px; }
+  .colsrow { display: none; }
+  .opt { grid-template-columns: 14px minmax(0, 1fr) auto; row-gap: 2px; }
+  .opt .t, .opt .dur { grid-column: 2; font-size: 13px; }
+  .opt .p { grid-column: 3; grid-row: 1 / span 3; align-self: center; }
+  .opt .note { grid-column: 2 / -1; }
+}
+.sum { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-top: 12px;
+  padding-top: 12px; border-top: 2px solid var(--ink); }
+.sum b { font-size: 28px; letter-spacing: -.02em; }
+.fine { font-size: 12.5px; color: var(--muted); max-width: 70ch; }
+footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted);
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 </style>
-
-<style>html{-webkit-text-size-adjust:100%} body{margin:0} img{max-width:100%} [hidden]{display:none!important}</style>
 </head>
 <body>
 <div class="wrap">
-  <header class="top">
-    <div class="brand">
-      <div class="eyebrow">Rome → Barcelona · 22 Jun – 14 Jul 2027</div>
+
+  <div class="top">
+    <div>
+      <div class="label">Rome → Barcelona · 22 Jun – 14 Jul 2027</div>
       <h1>Europe 27</h1>
-      <p>Seven of us, six countries, one boat. The plan, the route and the flights in one place.</p>
+      <p>Seven of us. Rome, the Croatian coast by boat, Prague, Paris, Nice and Barcelona. Twenty-two nights.</p>
     </div>
-    <div class="count">
-      <div class="big" id="countdown">–</div>
-      <div class="lbl" id="countdownLbl">days until Rome</div>
+    <div class="dial">
+      <div class="label" id="dialLbl">Days until Rome</div>
+      <div class="n"><span id="days">–</span><span class="dot" aria-hidden="true"></span></div>
     </div>
-  </header>
+  </div>
 
-
-  <!-- TRIP -->
   <section>
-    <div class="grid2">
-      <div class="card map">
-        <h2>The route</h2>
-        <p class="muted small" style="margin:0 0 6px">Drawn to latitude and longitude. Flights solid, the boat dotted, the Paris → Nice train option dashed.</p>
-        <svg id="mapsvg" viewBox="0 0 600 440" role="img" aria-label="Route map: Rome, Dubrovnik, sail to Split, Prague, Paris, Nice, Barcelona"></svg>
-        <div class="legend"><span><i></i>Flight</span><span><i class="b"></i>Sail Croatia</span><span><i class="t"></i>Train option</span></div>
-      </div>
-      <div class="card">
-        <h2>Day by day</h2>
-        <p class="muted small" style="margin:0 0 12px">Flight prices are per person in AUD with a cabin bag, from the group scan on Tue 27 Oct. They change daily, so check seats for all 7 when booking.</p>
-        <ol class="trip" id="trip"></ol>
-        <div class="total"><span class="muted">Five flights, per person</span><span><b class="mono" id="tripTotal">A$843</b> <span class="muted small">· A$5,901 for 7</span></span></div>
-      </div>
+    <header><h2>Route</h2><span class="label">Drawn to latitude and longitude</span></header>
+    <div class="map">
+      <svg id="map" viewBox="0 0 960 520" role="img" aria-label="Route map: Rome, Dubrovnik, by boat to Split, Prague, Paris, Nice, Barcelona"></svg>
     </div>
+    <div class="key"><span><i></i>Flight</span><span><i class="b"></i>Sail Croatia</span><span><i class="t"></i>TGV option</span></div>
   </section>
 
-  <footer>Flight prices from the Europe 27 group scan on 27 Oct 2026. Money: Beem It. Decisions: the group chat.</footer>
+  <section>
+    <header><h2>Stays</h2><span class="label">22 nights · 22 Jun – 14 Jul</span></header>
+    <div class="ruler" id="ruler"></div>
+    <div class="ticks"><span>22 Jun</span><span>14 Jul</span></div>
+  </section>
+
+  <section>
+    <header><h2>Transit</h2><span class="label">Per person · AUD · cabin bag included</span></header>
+    <div class="colsrow label"><span>Leg</span><div class="cols"><span></span><span>Carrier</span><span>Times</span><span>Duration</span><span>Price</span></div></div>
+    <div id="transit"></div>
+    <div class="sum"><span class="muted">Five flights, picks only, per person</span><span><b id="total">A$843</b> <span class="muted">· A$5,901 for 7</span></span></div>
+    <p class="fine">Prices from the group flight scan on 27 Oct 2026, searched for one seat. Budget airlines include an estimated A$40 cabin-bag fee. Fares change daily: check seats for all 7 before booking. The orange dot marks the current pick.</p>
+  </section>
+
+  <footer><span>Money: Beem It · Decisions: the group chat</span><span>Updated 27 Oct 2026</span></footer>
 </div>
 
 <script>
 (() => {
   "use strict";
   const $ = (s) => document.querySelector(s);
-  const el = (tag, attrs = {}, ...kids) => {
-    const n = document.createElement(tag);
-    for (const [k, v] of Object.entries(attrs)) {
-      if (k === "class") n.className = v; else if (k === "text") n.textContent = v;
-      else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v);
-    }
-    for (const k of kids) if (k != null) n.append(k);
-    return n;
-  };
-  const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } },
-                  set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+  const h = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
 
-  /* ---------- Countdown ---------- */
-  function countdown() {
-    const rome = new Date(2027, 5, 22), home = new Date(2027, 6, 14), now = new Date();
-    const day = 86400000, d = Math.ceil((rome - now) / day);
-    if (d > 0) { $("#countdown").textContent = d; $("#countdownLbl").textContent = d === 1 ? "day until Rome" : "days until Rome"; }
-    else if (now < home) { $("#countdown").textContent = "Now"; $("#countdownLbl").textContent = "you're on the trip"; }
-    else { $("#countdown").textContent = "Done"; $("#countdownLbl").textContent = "home safe"; }
-  }
-  countdown();
+  /* Countdown */
+  const rome = new Date(2027, 5, 22), home = new Date(2027, 6, 14), now = new Date();
+  const d = Math.ceil((rome - now) / 86400000);
+  if (d > 0) { $("#days").textContent = d; $("#dialLbl").textContent = d === 1 ? "Day until Rome" : "Days until Rome"; }
+  else if (now < home) { $("#days").textContent = "Now"; $("#dialLbl").textContent = "On the trip"; }
+  else { $("#days").textContent = "Done"; $("#dialLbl").textContent = "Home"; }
 
-  /* ---------- Trip data (from the group scan, 27 Oct 2026) ---------- */
+  /* Stops (all on Central European Summer Time) */
   const STOPS = [
-    { city: "Rome", lon: 12.50, lat: 41.90, dates: "22–25 Jun", when: "Tue 22 Jun", nights: 3,
-      note: "Everyone lands on the 22nd. Sam gets in at 11:25 from Vancouver." ,
-      leg: { code: "FCO → DBV", what: "Fri 25 Jun · Ryanair nonstop 15:05–16:25", pp: 182, type: "flight" } },
-    { city: "Dubrovnik", lon: 18.09, lat: 42.65, dates: "25–26 Jun", when: "Fri 25 Jun", nights: 1,
-      note: "One night, then board Sail Croatia on Saturday.",
-      leg: { code: "DBV ⇢ SPU", what: "Sat 26 Jun – Sat 3 Jul · Sail Croatia up the coast", type: "boat" } },
-    { city: "Split", lon: 16.44, lat: 43.51, dates: "3 Jul", when: "Sat 3 Jul", nights: 0, boat: true,
-      note: "Off the boat around 9am, straight to the airport.",
-      leg: { code: "SPU → PRG", what: "Sat 3 Jul · Croatia Airlines nonstop 16:00–17:25", pp: 212, type: "flight" } },
-    { city: "Prague", lon: 14.42, lat: 50.08, dates: "3–6 Jul", when: "Sat 3 Jul", nights: 3,
-      note: "In town by early evening. Beer hall on night one.",
-      leg: { code: "PRG → CDG", what: "Tue 6 Jul · Air France nonstop 20:25–22:15", pp: 130, type: "flight" } },
-    { city: "Paris", lon: 2.35, lat: 48.86, dates: "6–8 Jul", when: "Tue 6 Jul", nights: 2,
-      note: "Two nights.",
-      leg: { code: "ORY → NCE", what: "Thu 8 Jul · easyJet 08:15–09:45, or the daytime TGV (group to decide)", pp: 180, type: "flight", alt: "train" } },
-    { city: "Nice", lon: 7.26, lat: 43.70, dates: "8–11 Jul", when: "Thu 8 Jul", nights: 3,
-      note: "Three nights on the Riviera.",
-      leg: { code: "NCE → BCN", what: "Sun 11 Jul · Vueling nonstop 23:10–00:35", pp: 139, type: "flight" } },
-    { city: "Barcelona", lon: 2.17, lat: 41.39, dates: "11–14 Jul", when: "Sun 11 Jul", nights: 3, end: true,
-      note: "Wed 14 Jul: the group flies home to Adelaide, Sam to Vancouver." },
+    { city: "Rome",      lon: 12.50, lat: 41.90, dates: "22–25 Jun", nights: 3, lab: [10, 18] },
+    { city: "Dubrovnik", lon: 18.09, lat: 42.65, dates: "25–26 Jun", nights: 1, lab: [10, 18] },
+    { city: "Sail Croatia", boat: true, dates: "26 Jun – 3 Jul", nights: 7 },
+    { city: "Split",     lon: 16.44, lat: 43.51, dates: "3 Jul", nights: 0, lab: [-12, -12, "end"] },
+    { city: "Prague",    lon: 14.42, lat: 50.08, dates: "3–6 Jul",   nights: 3, lab: [12, -6] },
+    { city: "Paris",     lon: 2.35,  lat: 48.86, dates: "6–8 Jul",   nights: 2, lab: [-12, -8, "end"] },
+    { city: "Nice",      lon: 7.26,  lat: 43.70, dates: "8–11 Jul",  nights: 3, lab: [12, 18] },
+    { city: "Barcelona", lon: 2.17,  lat: 41.39, dates: "11–14 Jul", nights: 3, lab: [12, 18] },
   ];
 
-  function renderTrip() {
-    const ol = $("#trip");
-    STOPS.forEach((s) => {
-      const nightsTxt = s.boat ? "end of the boat" : s.nights ? `${s.nights} night${s.nights > 1 ? "s" : ""}` : "";
-      const li = el("li", { class: "stop" },
-        el("div", { class: "when", text: s.when }),
-        el("div", {},
-          el("h3", {}, s.city, nightsTxt ? el("span", { class: "nights" + (s.boat ? " boat" : ""), text: nightsTxt }) : null),
-          el("p", { text: s.note }),
-          s.leg ? el("div", { class: "leg" },
-            el("span", { class: "code", text: s.leg.code }),
-            el("span", { class: "what", text: s.leg.what }),
-            el("span", { class: "pp" }, s.leg.pp ? `A$${s.leg.pp}` : "7 nights",
-              el("small", { text: s.leg.pp ? "per person" : "on board" }))
-          ) : null));
-      ol.append(li);
-    });
-  }
-  renderTrip();
+  /* Ruler of stays, widths by nights */
+  const ruler = $("#ruler");
+  STOPS.filter((s) => s.nights > 0).forEach((s) => {
+    const el = h("div", "stay" + (s.boat ? " boat" : ""));
+    el.style.setProperty("--n", s.nights);
+    const nn = h("div", "nn", String(s.nights)); nn.append(h("small", null, s.nights === 1 ? "night" : "nights"));
+    el.append(h("b", null, s.city), h("span", null, s.dates), nn);
+    ruler.append(el);
+  });
 
-  function renderMap() {
-    const svg = $("#mapsvg"), NS = "http://www.w3.org/2000/svg";
-    const W = 600, H = 440, lon0 = -1, lon1 = 22, lat0 = 39.5, lat1 = 52;
-    const k = Math.cos(46 * Math.PI / 180);
-    const sx = (W - 40) / ((lon1 - lon0) * k), sy = (H - 40) / (lat1 - lat0), s = Math.min(sx, sy);
-    const X = (lon) => 20 + (lon - lon0) * k * s, Y = (lat) => H - 20 - (lat - lat0) * s;
-    const mk = (tag, attrs, text) => { const n = document.createElementNS(NS, tag);
-      for (const [a, v] of Object.entries(attrs)) n.setAttribute(a, v); if (text) n.textContent = text; svg.append(n); return n; };
-    for (let lo = 0; lo <= 20; lo += 5) { mk("line", { class: "grat", x1: X(lo), x2: X(lo), y1: 10, y2: H - 10 }); mk("text", { class: "gratlbl", x: X(lo) + 3, y: H - 12 }, `${lo}°E`); }
-    for (let la = 40; la <= 52; la += 2) { mk("line", { class: "grat", x1: 10, x2: W - 10, y1: Y(la), y2: Y(la) }); mk("text", { class: "gratlbl", x: 12, y: Y(la) - 3 }, `${la}°N`); }
-    const arc = (a, b, bend) => {
-      const x1 = X(a.lon), y1 = Y(a.lat), x2 = X(b.lon), y2 = Y(b.lat), mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
-      const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
-      return `M${x1},${y1} Q${mx - dy / len * bend},${my + dx / len * bend} ${x2},${y2}`;
-    };
-    for (let i = 0; i < STOPS.length - 1; i++) {
-      const a = STOPS[i], b = STOPS[i + 1], t = a.leg.type;
-      if (t === "boat") mk("path", { class: "boat", d: arc(a, b, -18) });
-      else mk("path", { class: "route", d: arc(a, b, 26) });
-      if (a.leg.alt === "train") mk("path", { class: "rail", d: arc(a, b, -14) });
-    }
-    const off = { Rome: [10, 16], Dubrovnik: [10, 16], Split: [-12, -12, "end"], Prague: [10, -8], Paris: [-12, -8, "end"], Nice: [10, 16], Barcelona: [10, 16] };
-    STOPS.forEach((st, i) => {
-      mk("circle", { class: "dot" + (i === 0 || st.end ? " end" : ""), cx: X(st.lon), cy: Y(st.lat), r: 6 });
-      const [dx, dy, anchor] = off[st.city] || [10, 4];
-      mk("text", { class: "city halo", x: X(st.lon) + dx, y: Y(st.lat) + dy, "text-anchor": anchor || "start" }, st.city);
-      mk("text", { class: "dates halo", x: X(st.lon) + dx, y: Y(st.lat) + dy + 13, "text-anchor": anchor || "start" }, st.dates);
-    });
+  /* Map */
+  const svg = $("#map"), NS = "http://www.w3.org/2000/svg";
+  const W = 960, H = 520, lon0 = -1.5, lon1 = 21.5, lat0 = 39.8, lat1 = 51.6, k = Math.cos(46 * Math.PI / 180);
+  const s = Math.min((W - 60) / ((lon1 - lon0) * k), (H - 50) / (lat1 - lat0));
+  const ox = (W - (lon1 - lon0) * k * s) / 2;
+  const X = (lon) => ox + (lon - lon0) * k * s, Y = (lat) => H - 26 - (lat - lat0) * s;
+  const mk = (tag, a, text) => { const n = document.createElementNS(NS, tag); for (const [x, v] of Object.entries(a)) n.setAttribute(x, v); if (text) n.textContent = text; svg.append(n); return n; };
+  for (let lo = 0; lo <= 20; lo += 5) { mk("line", { class: "grat", x1: X(lo), x2: X(lo), y1: 8, y2: H - 20 }); mk("text", { class: "gl", x: X(lo) + 4, y: H - 8 }, lo + "°E"); }
+  for (let la = 40; la <= 50; la += 2) { mk("line", { class: "grat", x1: 8, x2: W - 8, y1: Y(la), y2: Y(la) }); mk("text", { class: "gl", x: 12, y: Y(la) - 4 }, la + "°N"); }
+  const pts = STOPS.filter((p) => !p.boat);
+  const arc = (a, b, bend) => {
+    const x1 = X(a.lon), y1 = Y(a.lat), x2 = X(b.lon), y2 = Y(b.lat), dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+    return `M${x1},${y1} Q${(x1 + x2) / 2 - dy / L * bend},${(y1 + y2) / 2 + dx / L * bend} ${x2},${y2}`;
+  };
+  for (let i = 0; i < pts.length - 1; i++) {
+    const a = pts[i], b = pts[i + 1];
+    if (a.city === "Dubrovnik") mk("path", { class: "boat", d: arc(a, b, -22) });
+    else mk("path", { class: "fly", d: arc(a, b, 34) });
+    if (a.city === "Paris") mk("path", { class: "rail", d: arc(a, b, -18) });
   }
-  renderMap();
+  pts.forEach((p, i) => {
+    mk("circle", { class: "pt" + (i === 0 || i === pts.length - 1 ? " on" : ""), cx: X(p.lon), cy: Y(p.lat), r: 6 });
+    const [dx, dy, anchor] = p.lab;
+    mk("text", { class: "c halo", x: X(p.lon) + dx, y: Y(p.lat) + dy, "text-anchor": anchor || "start" }, p.city);
+    mk("text", { class: "d halo", x: X(p.lon) + dx, y: Y(p.lat) + dy + 14, "text-anchor": anchor || "start" }, p.dates);
+  });
 
+  /* Transit: pick first, then alternatives seen in the scans (27 Oct 2026) */
+  const LEGS = [
+    { day: "Fri 25 Jun", route: "Rome → Dubrovnik", opts: [
+      { pick: true, who: "Ryanair", code: "FCO → DBV", t: "15:05–16:25", dur: "1h 20", stops: "Nonstop", p: 182, bag: true },
+      { who: "Vueling", code: "FCO → DBV", t: "14:55–20:40", dur: "5h 45", stops: "1 stop", p: 181, bag: true },
+      { who: "Air Serbia", code: "FCO → DBV", t: "09:25–14:30", dur: "5h 05", stops: "1 stop via Belgrade", p: 234 },
+    ]},
+    { day: "26 Jun – 3 Jul", route: "Dubrovnik → Split", opts: [
+      { pick: true, who: "Sail Croatia", code: "DBV ⇢ SPU", t: "Sat 26 Jun – Sat 3 Jul", dur: "7 nights", stops: "Boat, booked separately", p: null },
+    ]},
+    { day: "Sat 3 Jul", route: "Split → Prague", opts: [
+      { pick: true, who: "Croatia Airlines", code: "SPU → PRG", t: "16:00–17:25", dur: "1h 25", stops: "Nonstop", p: 212 },
+      { who: "Smartwings", code: "SPU → PRG", t: "14:40–16:15", dur: "1h 35", stops: "Nonstop, lands earliest", p: 226 },
+      { who: "Lufthansa", code: "SPU → PRG", t: "17:05–21:15", dur: "4h 10", stops: "1 stop via Munich", p: 467 },
+    ]},
+    { day: "Tue 6 Jul", route: "Prague → Paris", opts: [
+      { pick: true, who: "Air France", code: "PRG → CDG", t: "20:25–22:15", dur: "1h 50", stops: "Nonstop", p: 130 },
+      { who: "Ryanair", code: "PRG → BVA", t: "19:55–21:40", dur: "1h 45", stops: "Nonstop to Beauvais, ~80 min bus to Paris", p: 153, bag: true },
+      { who: "Norwegian", code: "PRG → CDG", t: "14:45–21:20", dur: "6h 35", stops: "1 stop", p: 192, bag: true },
+    ]},
+    { day: "Thu 8 Jul", route: "Paris → Nice", opts: [
+      { pick: true, who: "easyJet", code: "ORY → NCE", t: "08:15–09:45", dur: "1h 30", stops: "Nonstop · about 4h 20 door to door", p: 180, bag: true },
+      { who: "Daytime TGV", code: "Gare de Lyon → Nice-Ville", t: "Several a day", dur: "5h 45", stops: "About 6h 15 centre to centre, no airport", p: null, from: "from ~€25" },
+    ]},
+    { day: "Sun 11 Jul", route: "Nice → Barcelona", opts: [
+      { pick: true, who: "Vueling", code: "NCE → BCN", t: "23:10–00:35", dur: "1h 25", stops: "Nonstop, lands after midnight", p: 139, bag: true },
+    ]},
+    { day: "Wed 14 Jul", route: "Barcelona → home", opts: [
+      { pick: true, who: "Own flights", code: "BCN → ADL / YVR", t: "The group to Adelaide", dur: "", stops: "Sam to Vancouver", p: null },
+    ]},
+  ];
+  const box = $("#transit");
+  LEGS.forEach((L) => {
+    const row = h("div", "leg");
+    const when = h("div", "when"); when.append(h("strong", null, L.route), h("span", "muted", L.day));
+    const opts = h("div", "opts");
+    L.opts.forEach((o) => {
+      const r = h("div", "opt" + (o.pick ? " pick" : ""));
+      const who = h("div", "who"); who.append(o.who + " ", h("span", "muted", o.code));
+      const price = h("div", "p", o.p ? "A$" + o.p : (o.from || "–"));
+      if (o.bag) price.append(h("small", null, "incl. ~A$40 bag"));
+      r.append(h("span", "mk"), who, h("div", "t", o.t), h("div", "dur", o.dur), price, h("div", "note", o.stops));
+      opts.append(r);
+    });
+    row.append(when, opts);
+    box.append(row);
+  });
 })();
 </script>
-
 </body>
 </html>
