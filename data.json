@@ -7,9 +7,9 @@
  "updated": "2026-10-27",
  "group_size": 7,
  "bag_est_aud": 40,
- "flights": 4,
- "total_pp": 685,
- "total_group": 4795,
+ "flights": 5,
+ "total_pp": 865,
+ "total_group": 6055,
  "legs": [
   {
    "route": "Rome → Dubrovnik",
@@ -130,12 +130,33 @@
    "opts": [
     {
      "pick": true,
-     "who": "No fares found this scan",
-     "code": "",
-     "t": "",
-     "dur": "",
-     "stops": "",
-     "p": null
+     "who": "easyJet",
+     "code": "ORY → NCE",
+     "t": "08:15–09:45",
+     "dur": "1h 30",
+     "stops": "Nonstop · about 4h 20 door to door · last seen 27 Oct",
+     "p": 180,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "easyJet",
+     "code": "ORY → NCE",
+     "t": "07:10–08:40",
+     "dur": "1h 30",
+     "stops": "Nonstop · last seen 27 Oct",
+     "p": 185,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "easyJet",
+     "code": "CDG → NCE",
+     "t": "14:15–15:55",
+     "dur": "1h 40",
+     "stops": "Nonstop · last seen 27 Oct",
+     "p": 191,
+     "bag": true
     },
     {
      "pick": false,
@@ -147,7 +168,8 @@
      "p": null,
      "from": "from ~€25"
     }
-   ]
+   ],
+   "carried": true
   },
   {
    "route": "Nice → Barcelona",
