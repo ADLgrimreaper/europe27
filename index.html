@@ -156,11 +156,11 @@ footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line);
     <header><h2>Transit</h2><span class="label">Per person · AUD · cabin bag included</span></header>
     <div class="colsrow label"><span>Leg</span><div class="cols"><span></span><span>Carrier</span><span>Times</span><span>Duration</span><span>Price</span></div></div>
     <div id="transit"></div>
-    <div class="sum"><span class="muted">Five flights, picks only, per person</span><span><b id="total">A$843</b> <span class="muted">· A$5,901 for 7</span></span></div>
-    <p class="fine">Prices from the group flight scan on 27 Oct 2026, searched for one seat. Budget airlines include an estimated A$40 cabin-bag fee. Fares change daily: check seats for all 7 before booking. The orange dot marks the current pick.</p>
+    <div class="sum"><span class="muted" id="totalLbl">Five flights, picks only, per person</span><span><b id="total">A$843</b> <span class="muted" id="totalGroup">· A$5,901 for 7</span></span></div>
+    <p class="fine">Prices from the group flight scan on <span id="scanDate">27 Oct 2026</span>, searched for one seat. Budget airlines include an estimated A$40 cabin-bag fee. Fares change daily: check seats for all 7 before booking. The orange dot marks the current pick.</p>
   </section>
 
-  <footer><span>Money: Beem It · Decisions: the group chat</span><span>Updated 27 Oct 2026</span></footer>
+  <footer><span>Money: Beem It · Decisions: the group chat</span><span id="updated">Prices updated 27 Oct 2026</span></footer>
 </div>
 
 <script>
@@ -257,21 +257,43 @@ footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line);
     ]},
   ];
   const box = $("#transit");
-  LEGS.forEach((L) => {
-    const row = h("div", "leg");
-    const when = h("div", "when"); when.append(h("strong", null, L.route), h("span", "muted", L.day));
-    const opts = h("div", "opts");
-    L.opts.forEach((o) => {
-      const r = h("div", "opt" + (o.pick ? " pick" : ""));
-      const who = h("div", "who"); who.append(o.who + " ", h("span", "muted", o.code));
-      const price = h("div", "p", o.p ? "A$" + o.p : (o.from || "–"));
-      if (o.bag) price.append(h("small", null, "incl. ~A$40 bag"));
-      r.append(h("span", "mk"), who, h("div", "t", o.t), h("div", "dur", o.dur), price, h("div", "note", o.stops));
-      opts.append(r);
+  const fmtA = (n) => "A$" + Number(n).toLocaleString("en-AU");
+  function renderTransit(legs) {
+    box.replaceChildren();
+    legs.forEach((L) => {
+      const row = h("div", "leg");
+      const when = h("div", "when"); when.append(h("strong", null, L.route), h("span", "muted", L.day));
+      const opts = h("div", "opts");
+      L.opts.forEach((o) => {
+        const r = h("div", "opt" + (o.pick ? " pick" : ""));
+        const who = h("div", "who"); who.append((o.who || "") + " ", h("span", "muted", o.code || ""));
+        const price = h("div", "p", o.p ? fmtA(o.p) : (o.from || "–"));
+        if (o.bag) price.append(h("small", null, "incl. ~A$40 bag"));
+        r.append(h("span", "mk"), who, h("div", "t", o.t || ""), h("div", "dur", o.dur || ""), price, h("div", "note", o.stops || ""));
+        opts.append(r);
+      });
+      row.append(when, opts);
+      box.append(row);
     });
-    row.append(when, opts);
-    box.append(row);
-  });
+  }
+  renderTransit(LEGS);
+
+  // Latest prices, pushed here by the group flight scan (Wed + Sat). Falls back to the prices above.
+  fetch("data.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((d) => {
+    if (!d || !Array.isArray(d.legs) || !d.legs.length) return;
+    renderTransit(d.legs);
+    const n = d.group_size || 7;
+    if (d.total_pp) {
+      $("#total").textContent = fmtA(d.total_pp);
+      $("#totalGroup").textContent = `· ${fmtA(d.total_group)} for ${n}`;
+      $("#totalLbl").textContent = `${d.flights === 5 ? "Five" : d.flights} flights, picks only, per person`;
+    }
+    if (d.updated) {
+      const when = new Date(d.updated + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
+      $("#updated").textContent = "Prices updated " + when;
+      $("#scanDate").textContent = when;
+    }
+  }).catch(() => {});
 })();
 </script>
 </body>
