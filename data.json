@@ -1,0 +1,220 @@
+{
+ "updated": "2026-10-27",
+ "group_size": 7,
+ "bag_est_aud": 40,
+ "flights": 5,
+ "total_pp": 842,
+ "total_group": 5894,
+ "legs": [
+  {
+   "route": "Rome → Dubrovnik",
+   "day": "Fri 25 Jun",
+   "opts": [
+    {
+     "pick": true,
+     "who": "Ryanair",
+     "code": "FCO → DBV",
+     "t": "15:05–16:25",
+     "dur": "1h 20",
+     "stops": "Nonstop",
+     "p": 182,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "Vueling",
+     "code": "FCO → DBV",
+     "t": "14:55–20:40",
+     "dur": "5h 45",
+     "stops": "1 stop",
+     "p": 180,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "Brussels Airlines",
+     "code": "FCO → DBV",
+     "t": "21:05–17:30 +1",
+     "dur": "20h 25",
+     "stops": "1 stop",
+     "p": 232,
+     "bag": false
+    }
+   ]
+  },
+  {
+   "route": "Dubrovnik → Split",
+   "day": "26 Jun – 3 Jul",
+   "opts": [
+    {
+     "pick": true,
+     "who": "Sail Croatia",
+     "code": "DBV ⇢ SPU",
+     "t": "Sat 26 Jun – Sat 3 Jul",
+     "dur": "7 nights",
+     "stops": "Boat, booked separately",
+     "p": null
+    }
+   ]
+  },
+  {
+   "route": "Split → Prague",
+   "day": "Sat 3 Jul",
+   "opts": [
+    {
+     "pick": true,
+     "who": "Croatia",
+     "code": "SPU → PRG",
+     "t": "16:00–17:25",
+     "dur": "1h 25",
+     "stops": "Nonstop · After 11:00, Prague same day",
+     "p": 211,
+     "bag": false
+    },
+    {
+     "pick": false,
+     "who": "Smartwings",
+     "code": "SPU → PRG",
+     "t": "14:40–16:15",
+     "dur": "1h 35",
+     "stops": "Nonstop",
+     "p": 225,
+     "bag": false
+    }
+   ]
+  },
+  {
+   "route": "Prague → Paris",
+   "day": "Tue 6 Jul",
+   "opts": [
+    {
+     "pick": true,
+     "who": "Air France",
+     "code": "PRG → CDG",
+     "t": "20:25–22:15",
+     "dur": "1h 50",
+     "stops": "Nonstop",
+     "p": 130,
+     "bag": false
+    },
+    {
+     "pick": false,
+     "who": "Ryanair",
+     "code": "PRG → BVA",
+     "t": "19:55–21:40",
+     "dur": "1h 45",
+     "stops": "Nonstop",
+     "p": 153,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "Air France",
+     "code": "PRG → CDG",
+     "t": "06:30–08:25",
+     "dur": "1h 55",
+     "stops": "Nonstop",
+     "p": 155,
+     "bag": false
+    }
+   ]
+  },
+  {
+   "route": "Paris → Nice",
+   "day": "Thu 8 Jul",
+   "opts": [
+    {
+     "pick": true,
+     "who": "easyJet",
+     "code": "ORY → NCE",
+     "t": "08:15–09:45",
+     "dur": "1h 30",
+     "stops": "Nonstop · about 4h 20 door to door",
+     "p": 180,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "easyJet",
+     "code": "ORY → NCE",
+     "t": "07:10–08:40",
+     "dur": "1h 30",
+     "stops": "Nonstop",
+     "p": 185,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "easyJet",
+     "code": "CDG → NCE",
+     "t": "14:15–15:55",
+     "dur": "1h 40",
+     "stops": "Nonstop",
+     "p": 191,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "Daytime TGV",
+     "code": "Gare de Lyon → Nice-Ville",
+     "t": "Several a day",
+     "dur": "5h 45",
+     "stops": "About 6h 15 centre to centre, no airport",
+     "p": null,
+     "from": "from ~€25"
+    }
+   ]
+  },
+  {
+   "route": "Nice → Barcelona",
+   "day": "Sun 11 Jul",
+   "opts": [
+    {
+     "pick": true,
+     "who": "Vueling",
+     "code": "NCE → BCN",
+     "t": "23:10–00:35 +1",
+     "dur": "1h 25",
+     "stops": "Nonstop",
+     "p": 139,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "Vueling",
+     "code": "NCE → BCN",
+     "t": "09:15–10:40",
+     "dur": "1h 25",
+     "stops": "Nonstop",
+     "p": 180,
+     "bag": true
+    },
+    {
+     "pick": false,
+     "who": "Vueling",
+     "code": "NCE → BCN",
+     "t": "18:25–19:50",
+     "dur": "1h 25",
+     "stops": "Nonstop",
+     "p": 228,
+     "bag": true
+    }
+   ]
+  },
+  {
+   "route": "Barcelona → home",
+   "day": "Wed 14 Jul",
+   "opts": [
+    {
+     "pick": true,
+     "who": "Own flights",
+     "code": "BCN → ADL / YVR",
+     "t": "The group to Adelaide",
+     "dur": "",
+     "stops": "Sam to Vancouver",
+     "p": null
+    }
+   ]
+  }
+ ]
+}
