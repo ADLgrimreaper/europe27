@@ -119,6 +119,8 @@ section > header h2 { font-size: 22px; }
   padding-top: 12px; border-top: 2px solid var(--ink); }
 .sum b { font-size: 28px; letter-spacing: -.02em; }
 .fine { font-size: 12.5px; color: var(--muted); max-width: 70ch; }
+.build { font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.build .stale { color: var(--accent); }
 footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted);
   display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 </style>
@@ -160,7 +162,7 @@ footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line);
     <p class="fine">Prices from the group flight scan on <span id="scanDate">27 Oct 2026</span>, searched for one seat. Budget airlines include an estimated A$40 cabin-bag fee. Fares change daily: check seats for all 7 before booking. The orange dot marks the current pick.</p>
   </section>
 
-  <footer><span>Money: Beem It · Decisions: the group chat</span><span id="updated">Prices updated 27 Oct 2026</span></footer>
+  <footer><span>Money: Beem It · Decisions: the group chat</span><span id="updated">Prices updated 27 Oct 2026</span><span class="build" id="build">Build 271026-r#static · page v2</span></footer>
 </div>
 
 <script>
@@ -292,6 +294,11 @@ footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line);
       const when = new Date(d.updated + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
       $("#updated").textContent = "Prices updated " + when;
       $("#scanDate").textContent = when;
+      const age = Math.floor((Date.now() - new Date(d.updated + "T00:00:00")) / 86400000);
+      const b = d.build || {};
+      const el = $("#build");
+      el.textContent = `Build ${b.date || "??????"}-r#${b.run || "?"}${b.sha ? " · " + b.sha : ""} · page v2`;
+      if (age > 5) el.append(" · ", h("span", "stale", `stale ${age}d`));
     }
   }).catch(() => {});
 })();
