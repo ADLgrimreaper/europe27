@@ -162,7 +162,7 @@ footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line);
     <p class="fine">Prices from the group flight scan on <span id="scanDate">27 Oct 2026</span>, searched for one seat. Budget airlines include an estimated A$40 cabin-bag fee. Fares change daily: check seats for all 7 before booking. The orange dot marks the current pick.</p>
   </section>
 
-  <footer><span>Money: Beem It · Decisions: the group chat</span><span id="updated">Prices updated 27 Oct 2026</span><span class="build" id="build">Build 271026-r#static · page v2</span></footer>
+  <footer><span>Money: Beem It · Decisions: the group chat</span><span id="updated">Prices updated 27 Oct 2026</span><span class="build" id="build">Build 271026-r#static · page v3</span></footer>
 </div>
 
 <script>
@@ -285,7 +285,11 @@ footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line);
     if (!d || !Array.isArray(d.legs) || !d.legs.length) return;
     renderTransit(d.legs);
     const n = d.group_size || 7;
-    if (d.total_pp) {
+    if (d.incomplete && d.incomplete.length) {
+      $("#total").textContent = "–";
+      $("#totalGroup").textContent = "· total incomplete";
+      $("#totalLbl").textContent = `Not priced this scan: ${d.incomplete.join(", ")}`;
+    } else if (d.total_pp) {
       $("#total").textContent = fmtA(d.total_pp);
       $("#totalGroup").textContent = `· ${fmtA(d.total_group)} for ${n}`;
       $("#totalLbl").textContent = `${d.flights === 5 ? "Five" : d.flights} flights, picks only, per person`;
@@ -297,7 +301,7 @@ footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line);
       const age = Math.floor((Date.now() - new Date(d.updated + "T00:00:00")) / 86400000);
       const b = d.build || {};
       const el = $("#build");
-      el.textContent = `Build ${b.date || "??????"}-r#${b.run || "?"}${b.sha ? " · " + b.sha : ""} · page v2`;
+      el.textContent = `Build ${b.date || "??????"}-r#${b.run || "?"}${b.sha ? " · " + b.sha : ""} · page v3`;
       if (age > 5) el.append(" · ", h("span", "stale", `stale ${age}d`));
     }
   }).catch(() => {});
