@@ -1,16 +1,16 @@
 {
  "build": {
-  "date": "041126",
-  "run": "18",
-  "sha": "5aa4080"
+  "date": "071126",
+  "run": "19",
+  "sha": "40c24cb"
  },
- "updated": "2026-11-04",
+ "updated": "2026-11-07",
  "group_size": 7,
  "bag_est_aud": 40,
  "flights": 5,
  "priced": 5,
- "total_pp": 865,
- "total_group": 6055,
+ "total_pp": 872,
+ "total_group": 6104,
  "incomplete": [],
  "legs": [
   {
@@ -24,7 +24,7 @@
      "t": "15:05–16:25",
      "dur": "1h 20",
      "stops": "Nonstop",
-     "p": 177,
+     "p": 178,
      "bag": true
     },
     {
@@ -34,7 +34,7 @@
      "t": "10:00–20:40",
      "dur": "10h 40",
      "stops": "1 stop",
-     "p": 182,
+     "p": 178,
      "bag": true
     },
     {
@@ -44,7 +44,7 @@
      "t": "14:55–20:40",
      "dur": "5h 45",
      "stops": "1 stop",
-     "p": 196,
+     "p": 188,
      "bag": true
     }
    ]
@@ -75,7 +75,7 @@
      "t": "16:00–17:25",
      "dur": "1h 25",
      "stops": "Nonstop · After 11:00, Prague same day",
-     "p": 217,
+     "p": 219,
      "bag": false
     },
     {
@@ -85,7 +85,7 @@
      "t": "14:40–16:15",
      "dur": "1h 35",
      "stops": "Nonstop",
-     "p": 228,
+     "p": 230,
      "bag": false
     }
    ]
@@ -101,7 +101,7 @@
      "t": "20:25–22:15",
      "dur": "1h 50",
      "stops": "Nonstop",
-     "p": 150,
+     "p": 151,
      "bag": false
     },
     {
@@ -111,7 +111,7 @@
      "t": "19:55–21:40",
      "dur": "1h 45",
      "stops": "Nonstop",
-     "p": 156,
+     "p": 157,
      "bag": true
     },
     {
@@ -121,7 +121,7 @@
      "t": "14:30–19:05",
      "dur": "4h 35",
      "stops": "1 stop",
-     "p": 157,
+     "p": 158,
      "bag": false
     }
    ]
@@ -137,7 +137,7 @@
      "t": "08:15–09:45",
      "dur": "1h 30",
      "stops": "Nonstop · about 4h 20 door to door",
-     "p": 181,
+     "p": 183,
      "bag": true
     },
     {
@@ -147,7 +147,7 @@
      "t": "07:10–08:40",
      "dur": "1h 30",
      "stops": "Nonstop",
-     "p": 187,
+     "p": 188,
      "bag": true
     },
     {
@@ -157,7 +157,7 @@
      "t": "14:15–15:55",
      "dur": "1h 40",
      "stops": "Nonstop",
-     "p": 193,
+     "p": 194,
      "bag": true
     },
     {
@@ -183,7 +183,7 @@
      "t": "23:10–00:35 +1",
      "dur": "1h 25",
      "stops": "Nonstop",
-     "p": 140,
+     "p": 141,
      "bag": true
     },
     {
@@ -193,7 +193,7 @@
      "t": "09:15–10:40",
      "dur": "1h 25",
      "stops": "Nonstop",
-     "p": 182,
+     "p": 183,
      "bag": true
     },
     {
@@ -203,7 +203,7 @@
      "t": "18:25–19:50",
      "dur": "1h 25",
      "stops": "Nonstop",
-     "p": 230,
+     "p": 232,
      "bag": true
     }
    ]
