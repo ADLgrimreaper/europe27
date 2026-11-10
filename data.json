@@ -1,16 +1,16 @@
 {
  "build": {
-  "date": "071126",
-  "run": "19",
-  "sha": "40c24cb"
+  "date": "111126",
+  "run": "20",
+  "sha": "2961012"
  },
- "updated": "2026-11-07",
+ "updated": "2026-11-11",
  "group_size": 7,
  "bag_est_aud": 40,
  "flights": 5,
  "priced": 5,
- "total_pp": 872,
- "total_group": 6104,
+ "total_pp": 842,
+ "total_group": 5894,
  "incomplete": [],
  "legs": [
   {
@@ -19,12 +19,22 @@
    "opts": [
     {
      "pick": true,
+     "who": "Air Serbia",
+     "code": "FCO → DBV",
+     "t": "09:25–14:30",
+     "dur": "5h 05",
+     "stops": "1 stop",
+     "p": 147,
+     "bag": false
+    },
+    {
+     "pick": false,
      "who": "Ryanair",
      "code": "FCO → DBV",
      "t": "15:05–16:25",
      "dur": "1h 20",
      "stops": "Nonstop",
-     "p": 178,
+     "p": 179,
      "bag": true
     },
     {
@@ -34,17 +44,7 @@
      "t": "10:00–20:40",
      "dur": "10h 40",
      "stops": "1 stop",
-     "p": 178,
-     "bag": true
-    },
-    {
-     "pick": false,
-     "who": "Vueling",
-     "code": "FCO → DBV",
-     "t": "14:55–20:40",
-     "dur": "5h 45",
-     "stops": "1 stop",
-     "p": 188,
+     "p": 179,
      "bag": true
     }
    ]
@@ -85,7 +85,7 @@
      "t": "14:40–16:15",
      "dur": "1h 35",
      "stops": "Nonstop",
-     "p": 230,
+     "p": 250,
      "bag": false
     }
    ]
@@ -101,7 +101,7 @@
      "t": "20:25–22:15",
      "dur": "1h 50",
      "stops": "Nonstop",
-     "p": 151,
+     "p": 152,
      "bag": false
     },
     {
@@ -111,7 +111,7 @@
      "t": "19:55–21:40",
      "dur": "1h 45",
      "stops": "Nonstop",
-     "p": 157,
+     "p": 156,
      "bag": true
     },
     {
@@ -147,7 +147,7 @@
      "t": "07:10–08:40",
      "dur": "1h 30",
      "stops": "Nonstop",
-     "p": 188,
+     "p": 189,
      "bag": true
     },
     {
@@ -193,7 +193,7 @@
      "t": "09:15–10:40",
      "dur": "1h 25",
      "stops": "Nonstop",
-     "p": 183,
+     "p": 184,
      "bag": true
     },
     {
