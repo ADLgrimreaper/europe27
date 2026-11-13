@@ -1,16 +1,16 @@
 {
  "build": {
-  "date": "111126",
-  "run": "20",
-  "sha": "2961012"
+  "date": "141126",
+  "run": "21",
+  "sha": "3977611"
  },
- "updated": "2026-11-11",
+ "updated": "2026-11-14",
  "group_size": 7,
  "bag_est_aud": 40,
  "flights": 5,
  "priced": 5,
- "total_pp": 842,
- "total_group": 5894,
+ "total_pp": 841,
+ "total_group": 5887,
  "incomplete": [],
  "legs": [
   {
@@ -44,7 +44,7 @@
      "t": "10:00–20:40",
      "dur": "10h 40",
      "stops": "1 stop",
-     "p": 179,
+     "p": 211,
      "bag": true
     }
    ]
@@ -85,7 +85,7 @@
      "t": "14:40–16:15",
      "dur": "1h 35",
      "stops": "Nonstop",
-     "p": 250,
+     "p": 231,
      "bag": false
     }
    ]
@@ -101,7 +101,7 @@
      "t": "20:25–22:15",
      "dur": "1h 50",
      "stops": "Nonstop",
-     "p": 152,
+     "p": 151,
      "bag": false
     },
     {
@@ -118,8 +118,8 @@
      "pick": false,
      "who": "KLM",
      "code": "PRG → CDG",
-     "t": "14:30–19:05",
-     "dur": "4h 35",
+     "t": "11:15–17:45",
+     "dur": "6h 30",
      "stops": "1 stop",
      "p": 158,
      "bag": false
@@ -134,9 +134,9 @@
      "pick": true,
      "who": "easyJet",
      "code": "ORY → NCE",
-     "t": "08:15–09:45",
-     "dur": "1h 30",
-     "stops": "Nonstop · about 4h 20 door to door",
+     "t": "08:05–09:30",
+     "dur": "1h 25",
+     "stops": "Nonstop · about 4h 15 door to door",
      "p": 183,
      "bag": true
     },
@@ -144,8 +144,8 @@
      "pick": false,
      "who": "easyJet",
      "code": "ORY → NCE",
-     "t": "07:10–08:40",
-     "dur": "1h 30",
+     "t": "07:00–08:25",
+     "dur": "1h 25",
      "stops": "Nonstop",
      "p": 189,
      "bag": true
