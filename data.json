@@ -1,16 +1,16 @@
 {
  "build": {
-  "date": "141126",
-  "run": "21",
-  "sha": "3977611"
+  "date": "181126",
+  "run": "22",
+  "sha": "9f1267a"
  },
- "updated": "2026-11-14",
+ "updated": "2026-11-18",
  "group_size": 7,
  "bag_est_aud": 40,
  "flights": 5,
  "priced": 5,
- "total_pp": 841,
- "total_group": 5887,
+ "total_pp": 846,
+ "total_group": 5922,
  "incomplete": [],
  "legs": [
   {
@@ -24,7 +24,7 @@
      "t": "09:25–14:30",
      "dur": "5h 05",
      "stops": "1 stop",
-     "p": 147,
+     "p": 148,
      "bag": false
     },
     {
@@ -34,7 +34,7 @@
      "t": "15:05–16:25",
      "dur": "1h 20",
      "stops": "Nonstop",
-     "p": 179,
+     "p": 183,
      "bag": true
     },
     {
@@ -44,7 +44,7 @@
      "t": "10:00–20:40",
      "dur": "10h 40",
      "stops": "1 stop",
-     "p": 211,
+     "p": 212,
      "bag": true
     }
    ]
@@ -75,7 +75,7 @@
      "t": "16:00–17:25",
      "dur": "1h 25",
      "stops": "Nonstop · After 11:00, Prague same day",
-     "p": 219,
+     "p": 220,
      "bag": false
     },
     {
@@ -85,7 +85,7 @@
      "t": "14:40–16:15",
      "dur": "1h 35",
      "stops": "Nonstop",
-     "p": 231,
+     "p": 232,
      "bag": false
     }
    ]
@@ -101,7 +101,7 @@
      "t": "20:25–22:15",
      "dur": "1h 50",
      "stops": "Nonstop",
-     "p": 151,
+     "p": 152,
      "bag": false
     },
     {
@@ -111,17 +111,17 @@
      "t": "19:55–21:40",
      "dur": "1h 45",
      "stops": "Nonstop",
-     "p": 156,
+     "p": 157,
      "bag": true
     },
     {
      "pick": false,
      "who": "KLM",
      "code": "PRG → CDG",
-     "t": "11:15–17:45",
-     "dur": "6h 30",
+     "t": "14:30–19:05",
+     "dur": "4h 35",
      "stops": "1 stop",
-     "p": 158,
+     "p": 160,
      "bag": false
     }
    ]
@@ -137,7 +137,7 @@
      "t": "08:05–09:30",
      "dur": "1h 25",
      "stops": "Nonstop · about 4h 15 door to door",
-     "p": 183,
+     "p": 184,
      "bag": true
     },
     {
@@ -147,17 +147,17 @@
      "t": "07:00–08:25",
      "dur": "1h 25",
      "stops": "Nonstop",
-     "p": 189,
+     "p": 190,
      "bag": true
     },
     {
      "pick": false,
      "who": "easyJet",
      "code": "CDG → NCE",
-     "t": "14:15–15:55",
-     "dur": "1h 40",
+     "t": "15:00–16:35",
+     "dur": "1h 35",
      "stops": "Nonstop",
-     "p": 194,
+     "p": 195,
      "bag": true
     },
     {
@@ -183,7 +183,7 @@
      "t": "23:10–00:35 +1",
      "dur": "1h 25",
      "stops": "Nonstop",
-     "p": 141,
+     "p": 142,
      "bag": true
     },
     {
@@ -203,7 +203,7 @@
      "t": "18:25–19:50",
      "dur": "1h 25",
      "stops": "Nonstop",
-     "p": 232,
+     "p": 233,
      "bag": true
     }
    ]
