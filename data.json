@@ -1,16 +1,16 @@
 {
  "build": {
-  "date": "211126",
-  "run": "23",
-  "sha": "a29c3ea"
+  "date": "251126",
+  "run": "24",
+  "sha": "215c8e1"
  },
- "updated": "2026-11-21",
+ "updated": "2026-11-25",
  "group_size": 7,
  "bag_est_aud": 40,
  "flights": 5,
  "priced": 5,
- "total_pp": 856,
- "total_group": 5992,
+ "total_pp": 854,
+ "total_group": 5978,
  "incomplete": [],
  "legs": [
   {
@@ -24,7 +24,7 @@
      "t": "09:25–14:30",
      "dur": "5h 05",
      "stops": "1 stop",
-     "p": 150,
+     "p": 149,
      "bag": false
     },
     {
@@ -34,7 +34,7 @@
      "t": "15:05–16:25",
      "dur": "1h 20",
      "stops": "Nonstop",
-     "p": 188,
+     "p": 189,
      "bag": true
     },
     {
@@ -44,7 +44,7 @@
      "t": "10:00–20:40",
      "dur": "10h 40",
      "stops": "1 stop",
-     "p": 216,
+     "p": 215,
      "bag": true
     }
    ]
@@ -85,7 +85,7 @@
      "t": "14:40–16:15",
      "dur": "1h 35",
      "stops": "Nonstop",
-     "p": 255,
+     "p": 254,
      "bag": false
     }
    ]
@@ -137,7 +137,7 @@
      "t": "08:05–09:30",
      "dur": "1h 25",
      "stops": "Nonstop · about 4h 15 door to door",
-     "p": 186,
+     "p": 185,
      "bag": true
     },
     {
@@ -147,7 +147,7 @@
      "t": "07:00–08:25",
      "dur": "1h 25",
      "stops": "Nonstop",
-     "p": 192,
+     "p": 191,
      "bag": true
     },
     {
@@ -182,7 +182,7 @@
      "code": "NCE → BCN",
      "t": "23:10–00:35 +1",
      "dur": "1h 25",
-     "stops": "Nonstop",
+     "stops": "Nonstop · last seen 21 Nov",
      "p": 143,
      "bag": true
     },
@@ -192,7 +192,7 @@
      "code": "NCE → BCN",
      "t": "09:15–10:40",
      "dur": "1h 25",
-     "stops": "Nonstop",
+     "stops": "Nonstop · last seen 21 Nov",
      "p": 186,
      "bag": true
     },
@@ -202,11 +202,12 @@
      "code": "NCE → BCN",
      "t": "18:25–19:50",
      "dur": "1h 25",
-     "stops": "Nonstop",
+     "stops": "Nonstop · last seen 21 Nov",
      "p": 236,
      "bag": true
     }
-   ]
+   ],
+   "carried": true
   },
   {
    "route": "Barcelona → home",
