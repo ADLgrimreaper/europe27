@@ -1,16 +1,16 @@
 {
  "build": {
-  "date": "251126",
-  "run": "24",
-  "sha": "215c8e1"
+  "date": "281126",
+  "run": "25",
+  "sha": "efcf13b"
  },
- "updated": "2026-11-25",
+ "updated": "2026-11-28",
  "group_size": 7,
  "bag_est_aud": 40,
  "flights": 5,
  "priced": 5,
- "total_pp": 854,
- "total_group": 5978,
+ "total_pp": 856,
+ "total_group": 5992,
  "incomplete": [],
  "legs": [
   {
@@ -34,18 +34,18 @@
      "t": "15:05–16:25",
      "dur": "1h 20",
      "stops": "Nonstop",
-     "p": 189,
+     "p": 182,
      "bag": true
     },
     {
      "pick": false,
-     "who": "Vueling",
+     "who": "Aegean",
      "code": "FCO → DBV",
-     "t": "10:00–20:40",
-     "dur": "10h 40",
+     "t": "22:25–09:00 +1",
+     "dur": "10h 35",
      "stops": "1 stop",
-     "p": 215,
-     "bag": true
+     "p": 189,
+     "bag": false
     }
    ]
   },
@@ -75,7 +75,7 @@
      "t": "16:00–17:25",
      "dur": "1h 25",
      "stops": "Nonstop · After 11:00, Prague same day",
-     "p": 223,
+     "p": 222,
      "bag": false
     },
     {
@@ -85,7 +85,7 @@
      "t": "14:40–16:15",
      "dur": "1h 35",
      "stops": "Nonstop",
-     "p": 254,
+     "p": 253,
      "bag": false
     }
    ]
@@ -96,13 +96,13 @@
    "opts": [
     {
      "pick": true,
-     "who": "Air France",
-     "code": "PRG → CDG",
-     "t": "20:25–22:15",
-     "dur": "1h 50",
+     "who": "Ryanair",
+     "code": "PRG → BVA",
+     "t": "19:55–21:40",
+     "dur": "1h 45",
      "stops": "Nonstop",
-     "p": 154,
-     "bag": false
+     "p": 157,
+     "bag": true
     },
     {
      "pick": false,
@@ -111,18 +111,18 @@
      "t": "19:00–20:25 +1",
      "dur": "25h 25",
      "stops": "1 stop",
-     "p": 155,
+     "p": 147,
      "bag": false
     },
     {
      "pick": false,
-     "who": "Ryanair",
-     "code": "PRG → BVA",
-     "t": "19:55–21:40",
-     "dur": "1h 45",
+     "who": "Air France",
+     "code": "PRG → CDG",
+     "t": "20:25–22:15",
+     "dur": "1h 50",
      "stops": "Nonstop",
      "p": 158,
-     "bag": true
+     "bag": false
     }
    ]
   },
@@ -147,7 +147,7 @@
      "t": "07:00–08:25",
      "dur": "1h 25",
      "stops": "Nonstop",
-     "p": 191,
+     "p": 190,
      "bag": true
     },
     {
@@ -157,7 +157,7 @@
      "t": "15:00–16:35",
      "dur": "1h 35",
      "stops": "Nonstop",
-     "p": 197,
+     "p": 196,
      "bag": true
     },
     {
